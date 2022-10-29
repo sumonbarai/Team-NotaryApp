@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -10,15 +11,14 @@ const Orders = () => {
     companiesInformation = companies.companies;
   }
   useEffect(() => {
-    fetch("http://demo2211087.mockable.io/mock", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    })
-      .then((response) => response.json())
-      .then((data) => setCompanies(data));
+    axios
+      .post("http://demo2211087.mockable.io/mock", {})
+      .then(function (response) {
+        setCompanies(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   return (
